@@ -57,13 +57,18 @@ public class Chess {
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
 
-		ReturnPlay play = new ReturnPlay();
+		ReturnPlay plays = new ReturnPlay();
 
-		play.piecesOnBoard.
+		boolean legal = checkLegal(move);
 
-		return play;
+		return plays;
 	}
 	
+	static boolean checkLegal(String move){
+
+
+		return true;
+	}
 	
 	/**
 	 * This method should reset the game, and start from scratch.
