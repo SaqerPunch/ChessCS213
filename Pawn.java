@@ -2,7 +2,7 @@ package chess;
 
 public class Pawn extends Pieces{
 
-    public boolean moved = false;
+    public boolean moved = false;       // I think we'll want this so we can make the pawns double move if not moved yet, single if they have.
 
     public Pawn(boolean isWhite){
         super(isWhite);
