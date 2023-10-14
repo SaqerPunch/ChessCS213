@@ -2,6 +2,8 @@ package chess;
 
 public class Pawn extends Pieces{
 
+    public boolean moved = false;
+
     public Pawn(boolean isWhite){
         super(isWhite);
     }
