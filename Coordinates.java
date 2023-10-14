@@ -46,4 +46,19 @@ public class Coordinates {
         }
 
     }
+
+    public int getStartRank() {
+        return startRank;
+    }
+    public int getEndRank() {
+        return endRank;
+    }
+    public char getStartFile() {
+        return startFile;
+    }
+    public char getEndFile() {
+        return endFile;
+    }
 }
+
+

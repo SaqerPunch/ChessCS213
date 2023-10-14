@@ -48,8 +48,47 @@ public class Chess {
 	 *         the contents of the returned ReturnPlay instance.
 	 */
 	public static ReturnPlay play(String move) {
+		ReturnPlay result = new ReturnPlay();		// Make new ReturnPlay object storing result
 
-		/* FILL IN THIS METHOD */
+		Coordinates coordinates = new Coordinates(move);	// Make new Coordinates object parsing move
+
+		char startFile = coordinates.letterConverter(coordinates.getStartFile());
+		int startRank = coordinates.getStartRank();
+		char endFile = coordinates.letterConverter(coordinates.getEndFile());
+		int endRank = coordinates.getEndRank();
+
+		// Check if the source square is empty
+		Piece sourcePiece = board.getPiece(startFile, startRank);
+		if (sourcePiece == null) {
+			result.message = ReturnPlay.Message.ILLEGAL_MOVE;
+			return result;
+		}
+
+		PieceType pieceType = sourcePiece.getType();
+		Piece piece = null;
+
+		switch (piecetype) {
+			case PAWN:
+			piece = new Pawn(board, startFile, startRank);
+			break;
+			case KNIGHT:
+			piece = new Knight(board, startFile, startRank);
+			break;
+			case BISHOP:
+			piece = new Bishop(board, startFile, startRank);
+			break;
+			case ROOK:
+			piece = new Rook(board, startFile, startRank);
+			break;
+			case QUEEN:
+			piece = new Queen(board, startFile, startRank);
+			break;
+			case KING:
+			piece = new King(board, startFile, startRank);
+			break;
+		}
+
+		/* FILL IN THIS METHOD */			// Use our logic from individual piece classes to check legal moves
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
