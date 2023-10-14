@@ -1,19 +1,19 @@
 package chess;
 
 public abstract class Pieces {
-    private boolean white;
-    private boolean captured;
+    public boolean isWhite;
+    public boolean captured;
 
     public Pieces(boolean white) {
         this.setWhite(white);
-}
+    }
 
     public boolean isWhite() {
-        return this.white();
+        return this.isWhite();
     }
     
     public void setWhite(boolean white) {
-        this.white = white;
+        this.isWhite = white;
     }
 
     public boolean isCaptured() {
@@ -24,5 +24,6 @@ public abstract class Pieces {
         this.captured = captured;
     }
 
-    public abstract boolean canMove(Board board, Coordinates start, Coordinates end);
+    public abstract boolean canMove(Board board, String move);
+    
 }

@@ -2,9 +2,6 @@ package chess;
 
 import java.util.ArrayList;
 
-import chess.ReturnPiece.PieceFile;
-import chess.ReturnPiece.PieceType;
-
 class ReturnPiece {
 	static enum PieceType {WP, WR, WN, WB, WQ, WK, 
 		            BP, BR, BN, BB, BK, BQ};
@@ -57,18 +54,11 @@ public class Chess {
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
 
-		ReturnPlay plays = new ReturnPlay();
+		
 
-		boolean legal = checkLegal(move);
-
-		return plays;
+		return null;
 	}
 	
-	static boolean checkLegal(String move){
-
-
-		return true;
-	}
 	
 	/**
 	 * This method should reset the game, and start from scratch.
