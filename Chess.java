@@ -50,12 +50,31 @@ public class Chess {
 	 *         See the section "The Chess class" in the assignment description for details of
 	 *         the contents of the returned ReturnPlay instance.
 	 */
+
+	static ReturnPlay returnPlay = new ReturnPlay();
+	static Player currentPlayer;
+
+
 	public static ReturnPlay play(String move) {
 		//e1 e2
 		/* FILL IN THIS METHOD */
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
+
+		return_play.message = ReturnPlay.Message.ILLEGAL_MOVE;
+		if(move.equals("resign")) {
+			if (currentPlayer == Player.white) {
+				return_play.message = ReturnPlay.Message.RESIGN_WHITE_WINS;
+			} else {
+				return_play.message = ReturnPlay.Message.RESIGN_BLACK_WINS;
+			}
+			return returnPlay;
+		}
+		if (move.length() < 4) {
+			return returnPlay;
+		})
+
 		Pieces p = findPiece(current, move);
 		if(p.canMove(current, move) == true){
 			p.pieceFile = converter(move.charAt(3));
