@@ -62,6 +62,15 @@ public class Knight extends Pieces{
         if (currentFile < 'a' || currentFile > 'h' || currentRank < 1 || currentRank > 8) {
             return false;
         }
+        // Below we check for pins
+        if (board.isOccupied(currentFile, currentRank)) {
+            Pieces pinningPiece = board.getPiece(currentFile, currentRank);
+            if (pinningPiece.isWhite() != this.isWhite()) {
+                return true;    // The knight can capture the pinning piece
+            } else {
+                return false;   // Knight is pinned and can NOT move
+            }
+        }
 
         return true;    // Valid move
     }

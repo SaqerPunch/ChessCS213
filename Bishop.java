@@ -14,7 +14,7 @@ public class Bishop extends Pieces{
     @Override 
     public boolean canMove(Board board, String move){
         // Check if desired move is on valid diagonal
-        char startFile = movecharAt(0);
+        char startFile = move.charAt(0);
         int startRank = Character.getNumericValue(move.charAt(1));
         char endFile = move.charAt(3);
         int endRank = Character.getNumericValue(move.charAt(4));
@@ -42,7 +42,15 @@ public class Bishop extends Pieces{
 
             while (currentFile != endFile && currentRank != endRank) {
                 if (board.isOccupied(currentFile, currentRank)) {
-                    return false;
+                    // Below we're checking for pins
+                    if (board.isOccupied(currentFile, currentRank)) {
+                        Pieces pinningPiece = board.getPiece(currentFile, currentRank);
+                        if (pinningPiece.isWhite() != this.isWhite()) {
+                            return true;    // The bishop can capture the pinning piece
+                        } else {
+                            return false;  // The bishop is pinned and can NOT move
+                        }
+                    }
                 }
                 currentFile = (char) (currentFile + fileStep);
                 currentRank += rankStep;
@@ -55,4 +63,5 @@ public class Bishop extends Pieces{
             }
             return true;
     }
+    return false;
 }
