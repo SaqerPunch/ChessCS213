@@ -51,8 +51,49 @@ public class Chess {
 	 *         the contents of the returned ReturnPlay instance.
 	 */
 
+	public static boolean isKingInCheck(boolean isWhite) {
+		// Find king of certain color
+		char kingFile = ' '; // Replace with king's file
+		char kingRank = -1;  // Replace with king's rank
+
+		if (isWhite) {
+			kingFile = 'e';
+			kingRank = 1;
+		} else {
+			kingFile = 'e';
+			kingRank = 8;
+		}
+
+		if (kingFile == ' ' || kingRank == -1) {
+			return false;
+		}
+
+		// Check if any enemy piece can attack the king
+		for (ReturnPiece piece : current.piecesOnBoard) {
+			if (piece.pieceType != null && piece.pieceFile != null && piece.pieceRank != 0) {
+				if (piece.pieceType != ReturnPiece.PieceType.BK && piece.pieceType != ReturnPiece.PieceType.WK && piece.pieceFile !=null && piece.pieceRank != 0) {
+					String move = kingFile + kingRank + " " + piece.pieceFile + piece.pieceRank;
+					if (canCaptureKing(move, isWhite)) {
+						return true;
+					}
+				}
+			}
+			}
+		return false;
+		}
+		private static boolean canCaptureKing(String move, boolean isWhite) {
+			Pieces piece = findPiece(current, move);
+			if (piece != null && piece.canMove(current, move) && piece.isWhite() != isWhite) {
+				return true;
+			}
+			return false;
+		}
+
+
 	static ReturnPlay returnPlay = new ReturnPlay();
 	static Player currentPlayer;
+
+	
 
 
 	public static ReturnPlay play(String move) {
@@ -73,7 +114,7 @@ public class Chess {
 		}
 		if (move.length() < 4) {
 			return returnPlay;
-		})
+		}
 
 		Pieces p = findPiece(current, move);
 		if(p.canMove(current, move) == true){
