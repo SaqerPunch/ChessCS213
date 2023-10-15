@@ -1,6 +1,17 @@
 package chess;
 
 public class Coordinates {
+        public Pieces spotPiece;
+        char currentx;
+        int currenty;
+        
+        public Coordinates(char x, int y, Pieces piece){
+            this.currentx = x;
+            this.currenty = y;
+            this.spotPiece = piece;
+        }
+        
+        /* 
         String start;
         String end;
         char startFile;
@@ -22,7 +33,7 @@ public class Coordinates {
         this.startRank = start.charAt(1);
         this.endRank = end.charAt(1);
     }
-    
+    */
     public int letterConverter(char x){
 
         if(x == 'a'){
@@ -46,19 +57,4 @@ public class Coordinates {
         }
 
     }
-
-    public int getStartRank() {
-        return startRank;
-    }
-    public int getEndRank() {
-        return endRank;
-    }
-    public char getStartFile() {
-        return startFile;
-    }
-    public char getEndFile() {
-        return endFile;
-    }
 }
-
-

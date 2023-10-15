@@ -1,12 +1,18 @@
 package chess;
 
 public class Bishop extends Pieces{
-    public boolean moved = false;
+    public Bishop(boolean isWhite){
+        super(isWhite);
 
-    public Bishop(boolean white) {
-        super(white);
+        if(isWhite == true){
+            pieceType = PieceType.WB;
+        }else{
+            pieceType = PieceType.BB;
+        }
+        
     }
-    public boolean canMove(Board board, String move) {
-        return false;
+
+    public boolean canMove(Board board, String move){
+        return true;
     }
 }

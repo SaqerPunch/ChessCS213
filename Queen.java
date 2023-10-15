@@ -1,13 +1,18 @@
 package chess;
 
 public class Queen extends Pieces{
-    public boolean moved = false;
+    public Queen(boolean isWhite){
+        super(isWhite);
 
-    public Queen(boolean white) {
-        super(white);
+        if(isWhite == true){
+            pieceType = PieceType.WQ;
+        }else{
+            pieceType = PieceType.BQ;
+        }
+        
     }
 
-    public boolean canMove(Board board, String move) {
-        return false;
+    public boolean canMove(Board board, String move){
+        return true;
     }
 }

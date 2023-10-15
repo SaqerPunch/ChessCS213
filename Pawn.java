@@ -2,14 +2,20 @@ package chess;
 
 public class Pawn extends Pieces{
 
-    public boolean moved = false;       // I think we'll want this so we can make the pawns double move if not moved yet, single if they have.
-
     public Pawn(boolean isWhite){
         super(isWhite);
+
+        if(isWhite == true){
+            pieceType = PieceType.WP;
+        }else{
+            pieceType = PieceType.BP;
+        }
+
     }
 
     public boolean canMove(Board board, String move){
         //move is b2 c3
+        /*
         Coordinates moveInfo = new Coordinates(move);
         if(captured == true){
             return false;
@@ -38,7 +44,9 @@ public class Pawn extends Pieces{
                 }
             }
         }
-        
-        return false;
+        */
+        ///return false;
+
+        return true;
     }
 }

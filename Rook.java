@@ -1,10 +1,18 @@
 package chess;
 
 public class Rook extends Pieces{
-    public boolean moved = false;
+    public Rook(boolean isWhite){
+        super(isWhite);
 
-    public Rook(boolean white) {
-        super(white);
+        if(isWhite == true){
+            pieceType = PieceType.WR;
+        }else{
+            pieceType = PieceType.BR;
+        }
+        
     }
-    
+
+    public boolean canMove(Board board, String move){
+        return true;
+    }
 }
