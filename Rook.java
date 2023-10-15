@@ -11,8 +11,8 @@ public class Rook extends Pieces{
         }
         
     }
-    @Override
-    public boolean canMove(Board board, String move){
-        // 
+
+    public boolean canMove(ReturnPlay board, String move){
+        return true;
     }
 }

@@ -24,6 +24,21 @@ public abstract class Pieces extends ReturnPiece {
         this.captured = captured;
     }
 
-    public abstract boolean canMove(Board board, String move);
+    public abstract boolean canMove(ReturnPlay board, String move);
+
+    public boolean isOccupied(ReturnPlay board, String move){
+
+        for(ReturnPiece x: board.piecesOnBoard){
+            String spaceFile = ""+x.pieceFile;
+            int spaceRank = x.pieceRank;
+
+            if(move.charAt(3) == spaceFile.charAt(0) && move.charAt(4) == spaceRank){
+                return true;
+            }
+
+        }
+
+        return false;
+    }
     
 }
