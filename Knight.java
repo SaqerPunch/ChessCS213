@@ -21,50 +21,34 @@ public class Knight extends Pieces{
         int rankDifference = Math.abs(endRank - startRank);
         int fileDifference = Math.abs(endFile - startFile);
 
-        // Check if the knight is trying to move to its own square
+        // Check if the knight is trying to move to own square
         if (startFile == endFile && startRank == endRank) {
             return false;
         }
-        
-        // Check if move is L-shaped (2 squuares one way, 1 the other)
+
+        // Check if move is L-shaped(2 squares one way, 1 square another)
         if (!((rankDifference == 2 && fileDifference == 1) || (rankDifference == 1 && fileDifference == 2))) {
             return false;
         }
 
-        // Check the direction of the move
-        int rankStep;
-        if (endRank > startRank) {
-            rankStep = 1;
-        } else {
-            rankStep = -1;
-        }
-        int fileStep;
-        if(endFile > startFile){
-            fileStep = 1;
-        }else{
-            fileStep = -1;
-        }
-
-        char currentFile = (char) (startFile + fileStep);
-        int currentRank = startRank + rankStep;
-
-        // Check the move finishes on destination square
-        if (currentFile == endFile && currentRank == endRank) {
-            return true;    // Valid move
-        }
-
-        // Check if the destination square is occupied by a piece of the same color
-        if (board.isOccupied(endFile, endRank) && board.getPiece(endFile, endRank).isWhite() == this.isWhite()) {
-            return false;
+        // Check if the destination square is occupied
+        if (board.isOccupied(endFile, endRank)) {
+            Pieces targetPiece = board.getPiece(endFile, endRank);
+            // Check color of target piece
+            if (targetPiece.isWhite() != this.isWhite()) {
+                return true;    // The knight can capture enemy piece
+            } else {
+                return false;  // Knight can not capture friendly piece or nothing
+            }
         }
 
         // Ensure knight doesn't move off the board
-        if (currentFile < 'a' || currentFile > 'h' || currentRank < 1 || currentRank > 8) {
+        if (endFile < 'a' || endFile > 'h' || endRank < 1 || endRank > 8) {
             return false;
         }
         // Below we check for pins
-        if (board.isOccupied(currentFile, currentRank)) {
-            Pieces pinningPiece = board.getPiece(currentFile, currentRank);
+        if (board.isOccupied(startFile, startRank)) {
+            Pieces pinningPiece = board.getPiece(startFile, startRank);
             if (pinningPiece.isWhite() != this.isWhite()) {
                 return true;    // The knight can capture the pinning piece
             } else {

@@ -42,26 +42,25 @@ public class Bishop extends Pieces{
 
             while (currentFile != endFile && currentRank != endRank) {
                 if (board.isOccupied(currentFile, currentRank)) {
-                    // Below we're checking for pins
-                    if (board.isOccupied(currentFile, currentRank)) {
+                    // Checking for pins
                         Pieces pinningPiece = board.getPiece(currentFile, currentRank);
                         if (pinningPiece.isWhite() != this.isWhite()) {
                             return true;    // The bishop can capture the pinning piece
                         } else {
                             return false;  // The bishop is pinned and can NOT move
-                        }
-                    }
                 }
                 currentFile = (char) (currentFile + fileStep);
                 currentRank += rankStep;
             }
             
             if (board.isOccupied(endFile, endRank)) {
-                if (board.getPiece(endFile, endRank).isWhite() == this.isWhite()) {
+                if (board.getPiece(endFile, endRank).isWhite() != this.isWhite()) {
+                    return true;
+                } else {
                     return false;
                 }
-            }
-            return true;
+            } 
+        return false;
+        } 
+
     }
-    return false;
-}
