@@ -2,7 +2,7 @@ package chess;
 
 public class Bishop extends Pieces{
     public Bishop(boolean isWhite){
-        super(isWhite); // asfasdf
+        super(isWhite); 
 
         if(isWhite == true){
             pieceType = PieceType.WB;

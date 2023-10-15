@@ -3,7 +3,7 @@ package chess;
 public class Knight extends Pieces{
     public Knight(boolean isWhite){
         super(isWhite);
-        // Set piece type based on color asdasd
+        // Set piece type based on color
         if(isWhite == true){
             pieceType = PieceType.WN;
         }else{
