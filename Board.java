@@ -56,6 +56,19 @@ public class Board {
 
     }
 
+    public Pieces getPiece(char file, int rank) {
+        // Check if position is within board bounds
+        if (isWithinBounds(file, rank)) {
+            return spaces[rank - 1][file - 'a'].spotPiece;
+        }
+        return null;    // Return null if position outside board
+    }
+
+    private boolean isWithinBounds(char file, int rank) {
+        return file >= 'a' && file <= 'h' && rank >= 1 && rank <= 8;
+    }
+    
+
     /*
     String takenBoard[][];
     
