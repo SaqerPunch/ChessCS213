@@ -94,8 +94,9 @@ public class Chess {
 		}
 		
 		int endRank = Character.getNumericValue(move.charAt(4));
+		char endFile = move.charAt(3); 
 		
-		//Promotes Pawn
+		//Promotes White Pawn
 		if(p.pieceType == PieceType.WP && endRank == 8){
 			if(p instanceof Pawn){
 				Pieces j =((Pawn) p).promote(current, move);
@@ -103,6 +104,38 @@ public class Chess {
 				current.piecesOnBoard.add(j);
 				return current;
 			}
+		}
+
+		//Promotes Black Pawn
+		if(p.pieceType == PieceType.BP && endRank == 1){
+			if(p instanceof Pawn){
+				Pieces j =((Pawn) p).promote(current, move);
+				current = removePiece(current, move, j.spacePiece(current, move));
+				current.piecesOnBoard.add(j);
+				return current;
+			}
+		}
+
+		if(p.pieceType == PieceType.WK){
+
+			ReturnPiece adjacent = null;
+			for(ReturnPiece y: current.piecesOnBoard){
+				String spaceFile = ""+y.pieceFile;
+				int spaceRank = y.pieceRank;
+
+				if(endFile == spaceFile.charAt(0) && endRank == spaceRank){
+					adjacent = y;
+				} 
+			}
+
+			int rankstep = 0;
+			int intstep = 0;
+			String tempMove = ""+adjacent.pieceFile+adjacent.pieceType;
+			if(((Pieces)adjacent).isOccupied(current, move)){
+
+			}
+
+
 		}
 		
 	
