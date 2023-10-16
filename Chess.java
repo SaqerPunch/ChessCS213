@@ -91,7 +91,43 @@ public class Chess {
 		}else if(turn == Player.black && p.isWhite == true){
 			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 			return current;
+		}
+		
+		int endRank = Character.getNumericValue(move.charAt(4));
+		
+		//Promotes Pawn
+		if(p.pieceType == PieceType.WP && endRank == 8){
+			if(p instanceof Pawn){
+				Pieces j =((Pawn) p).promote(current, move);
+				current = removePiece(current, move, j.spacePiece(current, move));
+				current.piecesOnBoard.add(j);
+				return current;
+			}
+		}
+		
+	
+		if(p.canMove(current, move) == true){
+			
+			if(p.isOccupied(current, move) == true){
+				current = removePiece(current, move, p.spacePiece(current, move));
+				p.pieceFile = converter(move.charAt(3));
+				p.pieceRank = Character.getNumericValue(move.charAt(4));
+				current.piecesOnBoard.add(p);
+			}else{
+				p.pieceFile = converter(move.charAt(3));
+				p.pieceRank = Character.getNumericValue(move.charAt(4));
+				current.piecesOnBoard.add(p);
+			}
+
+			if(turn == Player.white){
+				turn = Player.black;
+			}else if(turn == Player.black){
+				turn = Player.white;
+			}
+			current.message = null;
+			return current;
 		}else if(p.pieceType == PieceType.WP && p.pieceRank == 5){
+
 			ReturnPiece adjacent = null;
 			for(ReturnPiece y: current.piecesOnBoard){
 				String spaceFile = ""+y.pieceFile;
@@ -171,19 +207,6 @@ public class Chess {
 					current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 				}
 			}
-		}
-		if(p.canMove(current, move) == true){
-			
-			
-			p.pieceFile = converter(move.charAt(3));
-			p.pieceRank = Character.getNumericValue(move.charAt(4));
-			current.piecesOnBoard.add(p);
-			if(turn == Player.white){
-				turn = Player.black;
-			}else if(turn == Player.black){
-				turn = Player.white;
-			}
-			current.message = null;
 		}else{
 			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 		}
@@ -213,6 +236,16 @@ public class Chess {
 			return null;
 		}
 
+	}
+	
+	public static ReturnPlay removePiece(ReturnPlay board, String move, ReturnPiece x){
+		ReturnPlay temp = board;
+		for(int i = 0; i < board.piecesOnBoard.size(); i++){
+			if(current.piecesOnBoard.get(i).equals(x)){
+				current.piecesOnBoard.remove(board.piecesOnBoard.get(i));
+			}
+		}
+		return temp;
 	}
 
 	public static Pieces findPiece(ReturnPlay board, String move){

@@ -40,9 +40,9 @@ public class Bishop extends Pieces{
             }
         }   
         
-        if (endFile > startFile) {
+            if (endFile > startFile) {
                 fileStep = 1;
-        } else {
+            } else {
                 fileStep = -1;
             }
 

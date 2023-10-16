@@ -4,7 +4,7 @@ public abstract class Pieces extends ReturnPiece {
     public boolean isWhite;
     public boolean captured;
     public boolean hasMoved;
-    
+
     public Pieces(boolean white) {
         this.setWhite(white);
     }
@@ -59,5 +59,28 @@ public abstract class Pieces extends ReturnPiece {
         }
         return null;
     }
-    
+    public static PieceFile converter(char x){
+
+		if(x == 'a'){
+			return PieceFile.a;
+		}else if(x == 'b'){
+			return PieceFile.b;
+		}else if(x == 'c'){
+			return PieceFile.c;
+		}else if(x == 'd'){
+			return PieceFile.d;
+		}else if(x == 'e'){
+			return PieceFile.e;
+		}else if(x == 'f'){
+			return PieceFile.f;
+		}else if(x == 'g'){
+			return PieceFile.g;
+		}else if(x == 'h'){
+			return PieceFile.h;
+		}else {
+			return null;
+		}
+
+	}
 }
+
