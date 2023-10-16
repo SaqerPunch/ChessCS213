@@ -63,38 +63,13 @@ public class Chess {
 		}else if(move.equals("resign") && turn == Player.black){
 			current.message = ReturnPlay.Message.RESIGN_WHITE_WINS;
 			return current;
+		}else if(move.equals("reset")){
+			start(); 
+			return current;
+		}else if(move.equals("quit")){
+			return current = null;
 		}
 		
-		if (isCastlingMove(move)) {
-			if(canCastle(current, move)) {
-				performCastle(current, move);
-				return current;
-			} else {
-				current.message = ReturnPlay.Message.ILLEGAL_MOVE;
-				return current;
-			}
-		}
-
-		private static boolean isCastlingMove(String move) {
-			if move.equals("O-O") {
-				return true;
-			}
-			if (move.equals("O-O-O")) {
-				return true;
-			}
-			return false;
-		}
-
-		private static boolean canCastle(ReturnPlay board, String move) {
-
-		}
-
-		private static void performCastle(ReturnPlay board, String move) {
-
-		}
-
-		
-
 		Pieces p = null;
 
 		for(ReturnPiece x: current.piecesOnBoard){
@@ -116,7 +91,90 @@ public class Chess {
 		}else if(turn == Player.black && p.isWhite == true){
 			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 			return current;
-		}else if(p.canMove(current, move) == true){
+		}else if(p.pieceType == PieceType.WP && p.pieceRank == 5){
+			ReturnPiece adjacent = null;
+			for(ReturnPiece y: current.piecesOnBoard){
+				String spaceFile = ""+y.pieceFile;
+				int spaceRank = y.pieceRank;
+				int moveRank = Character.getNumericValue(move.charAt(4))-1;//Checks piece under it
+
+				if(move.charAt(3) == spaceFile.charAt(0) && moveRank == spaceRank){
+					if(y instanceof Pawn){
+						adjacent = (Pawn) y;
+					}else{
+						adjacent = y;
+					}
+				} 
+
+        	}
+
+			if(adjacent instanceof Pawn){
+				if(((Pawn)adjacent).enpassantable == true){
+					p.pieceFile = converter(move.charAt(3));
+					p.pieceRank = Character.getNumericValue(move.charAt(4));
+					current.piecesOnBoard.add(p);
+					
+					
+					for(int i = 0; i < current.piecesOnBoard.size(); i++){
+						if(current.piecesOnBoard.get(i).equals(adjacent)){
+							current.piecesOnBoard.remove(current.piecesOnBoard.get(i));
+						}
+        			}
+					if(turn == Player.white){
+						turn = Player.black;
+					}else if(turn == Player.black){
+						turn = Player.white;
+					}
+					current.message = null;
+					return current;
+				}else{
+					current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+				}
+			}
+		}else if(p.pieceType == PieceType.BP && p.pieceRank == 4){
+			ReturnPiece adjacent = null;
+			for(ReturnPiece y: current.piecesOnBoard){
+				String spaceFile = ""+y.pieceFile;
+				int spaceRank = y.pieceRank;
+				int moveRank = Character.getNumericValue(move.charAt(4))+1;//Checks piece under it
+
+				if(move.charAt(3) == spaceFile.charAt(0) && moveRank == spaceRank){
+					if(y instanceof Pawn){
+						adjacent = (Pawn) y;
+					}else{
+						adjacent = y;
+					}
+				} 
+
+        	}
+
+			if(adjacent instanceof Pawn){
+				if(((Pawn)adjacent).enpassantable == true){
+					p.pieceFile = converter(move.charAt(3));
+					p.pieceRank = Character.getNumericValue(move.charAt(4));
+					current.piecesOnBoard.add(p);
+					
+					
+					for(int i = 0; i < current.piecesOnBoard.size(); i++){
+						if(current.piecesOnBoard.get(i).equals(adjacent)){
+							current.piecesOnBoard.remove(current.piecesOnBoard.get(i));
+						}
+        			}
+					if(turn == Player.white){
+						turn = Player.black;
+					}else if(turn == Player.black){
+						turn = Player.white;
+					}
+					current.message = null;
+					return current;
+				}else{
+					current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+				}
+			}
+		}
+		if(p.canMove(current, move) == true){
+			
+			
 			p.pieceFile = converter(move.charAt(3));
 			p.pieceRank = Character.getNumericValue(move.charAt(4));
 			current.piecesOnBoard.add(p);
