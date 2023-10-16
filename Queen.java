@@ -37,24 +37,25 @@ public class Queen extends Pieces{
             int nextSquareRank = startRank + rankStep;
 
             while (currentFile != endFile && currentRank != endRank) {
-                String currentMove = "" + currentFile + currentRank + " " + nextSquareFile + nextSquareRank;
+                String currentMove =""+currentFile+currentRank+" "+""+nextSquareFile+nextSquareRank;
                 if (isOccupied(board, currentMove)) {
-                    return false;
+                    return false;  
                 }
                 currentFile = (char) (currentFile + fileStep);
                 currentRank += rankStep;
             }
-            if (currentFile == endFile && currentRank == endRank) {
-                String currentMove = "" + currentFile + currentRank + " " + nextSquareFile + nextSquareRank;
-                if (isOccupied(board, currentMove) == true) {
-                    if (spacePiece(board, currentMove).isWhite() == true && isWhite == true) {
+
+            if(currentFile == endFile && currentRank == endRank){
+                String currentMove =""+currentFile+currentRank+" "+""+nextSquareFile+nextSquareRank;
+                if(isOccupied(board, currentMove)== true){
+                    if(spacePiece(board, currentMove).isWhite == true && isWhite == true){
                         return false;
-                    }   else if (spacePiece(board, currentMove).isWhite == false && isWhite == false) {
+                    }else if(spacePiece(board, currentMove).isWhite == false && isWhite == false){
                         return false;
-                    } else {
+                    }else{
                         return true;
                     }
-                } else {
+                }else{
                     return true;
                 }
             }
@@ -67,26 +68,33 @@ public class Queen extends Pieces{
             char currentFile = (char) (startFile + fileStep);
             int currentRank = startRank + rankStep;
 
+            char nextSquareFile = (char)(startFile + fileStep);
+            int nextSquareRank = startRank + rankStep;
+
             while (currentFile != endFile || currentRank != endRank) {
-                String currentMove = "" + currentFile + currentRank + " " + endFile + currentRank;
+                String currentMove =""+currentFile+currentRank+" "+""+nextSquareFile+nextSquareRank;
                 if (isOccupied(board, currentMove)) {
-                    return false;
+                    return false;  
                 }
                 currentFile = (char) (currentFile + fileStep);
                 currentRank += rankStep;
-            }
 
-            if (currentFile == endFile && currentRank == endRank) {
-                String currentMove = "" + currentFile + currentRank + " " + endFile + currentRank;
-                if (isOccupied(board, currentMove) == true) {
-                    if (spacePiece(board, currentMove).isWhite == true && isWhite == true) {
+                nextSquareFile = (char)(currentFile + fileStep);
+                nextSquareRank = currentRank + rankStep;
+
+            }
+                
+            if(currentFile == endFile && currentRank == endRank){
+                String currentMove =""+currentFile+currentRank+" "+""+currentFile+currentRank;
+                if(isOccupied(board, currentMove)== true){
+                    if(spacePiece(board, currentMove).isWhite == true && isWhite == true){
                         return false;
-                    } else if (spacePiece(board, currentMove).isWhite == false && isWhite == false) {
+                    }else if(spacePiece(board, currentMove).isWhite == false && isWhite == false){
                         return false;
-                    } else {
+                    }else{
                         return true;
                     }
-                } else {
+                }else{
                     return true;
                 }
             }
@@ -100,5 +108,3 @@ public class Queen extends Pieces{
         
 
     }
-
-
