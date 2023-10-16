@@ -24,6 +24,10 @@ public abstract class Pieces extends ReturnPiece {
         this.captured = captured;
     }
 
+    public boolean hasMoved() {
+        return this.hasMoved;
+    }
+
     public abstract boolean canMove(ReturnPlay board, String move);
 
     public boolean isOccupied(ReturnPlay board, String move){
