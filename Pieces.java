@@ -3,7 +3,8 @@ package chess;
 public abstract class Pieces extends ReturnPiece {
     public boolean isWhite;
     public boolean captured;
-
+    public boolean hasMoved;
+    
     public Pieces(boolean white) {
         this.setWhite(white);
     }
