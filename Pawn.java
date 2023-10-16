@@ -1,15 +1,16 @@
 package chess;
 
 public class Pawn extends Pieces{
-
+    public boolean enpassantable;
     public Pawn(boolean isWhite){
         super(isWhite);
-
+        enpassantable = false;
         if(isWhite == true){
             pieceType = PieceType.WP;
         }else{
             pieceType = PieceType.BP;
         }
+
 
     }
 
@@ -31,12 +32,14 @@ public class Pawn extends Pieces{
                 if(spacePiece(board, move).isWhite == true){
                     return false;
                 }else{
+                    enpassantable = false;
                     return true;
                 }
             }else if(startRank-1 == endRank && (char)(startFile-1) == endFile && isWhite == false){
                 if(spacePiece(board, move).isWhite == false){
                     return false;
                 }else{
+                    enpassantable = false;
                     return true;
                 }
             }else{
@@ -47,8 +50,10 @@ public class Pawn extends Pieces{
             //first possible move (without attacking)
             if( startFile == endFile){//checks if moving in a straight line
                 if(startRank+1 == endRank){
+                    enpassantable = false;
                     return true;
                 }else if(startRank == 2 &&  endRank == 4){
+                    enpassantable = true;
                     return true;
                 }
             }
@@ -56,13 +61,19 @@ public class Pawn extends Pieces{
         }else if(isWhite == false){//its black
            if( startFile == endFile){//checks if moving in a straight line
                 if(startRank-1 == endRank){
+                    enpassantable = false;
                     return true;
                 }else if(startRank == 7 &&  endRank == 5){
+                    enpassantable = true;
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    public ReturnPlay promote(ReturnPlay board, String move){
+        return board;
     }
 }
