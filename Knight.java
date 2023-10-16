@@ -12,7 +12,7 @@ public class Knight extends Pieces{
         
     }
     @Override
-    public boolean canMove(Board board, String move){
+    public boolean canMove(ReturnPlay board, String move){
         char startFile = move.charAt(0);
         int startRank = Character.getNumericValue(move.charAt(1));
         char endFile = move.charAt(3);
@@ -31,30 +31,12 @@ public class Knight extends Pieces{
             return false;
         }
 
-        // Check if the destination square is occupied
-        if (board.isOccupied(endFile, endRank)) {
-            Pieces targetPiece = board.getPiece(endFile, endRank);
-            // Check color of target piece
-            if (targetPiece.isWhite() != this.isWhite()) {
-                return true;    // The knight can capture enemy piece
-            } else {
-                return false;  // Knight can not capture friendly piece or nothing
-            }
-        }
 
         // Ensure knight doesn't move off the board
         if (endFile < 'a' || endFile > 'h' || endRank < 1 || endRank > 8) {
             return false;
         }
-        // Below we check for pins
-        if (board.isOccupied(startFile, startRank)) {
-            Pieces pinningPiece = board.getPiece(startFile, startRank);
-            if (pinningPiece.isWhite() != this.isWhite()) {
-                return true;    // The knight can capture the pinning piece
-            } else {
-                return false;   // Knight is pinned and can NOT move
-            }
-        }
+
 
         return true;    // Valid move
     }
