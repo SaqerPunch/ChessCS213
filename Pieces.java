@@ -41,14 +41,14 @@ public abstract class Pieces extends ReturnPiece {
         return false;
     }
 
-    public ReturnPiece spacePiece(ReturnPlay board, String move){
+    public Pieces spacePiece(ReturnPlay board, String move){
         
         for(ReturnPiece x: board.piecesOnBoard){
             String spaceFile = ""+x.pieceFile;
             int spaceRank = x.pieceRank;
             int endMoveRank = Character.getNumericValue(move.charAt(4));
             if(move.charAt(3) == spaceFile.charAt(0) && endMoveRank == spaceRank){
-                return x;
+                return (Pieces)x;
             }
 
         }
