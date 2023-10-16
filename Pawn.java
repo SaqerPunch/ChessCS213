@@ -16,19 +16,24 @@ public class Pawn extends Pieces{
     public boolean canMove(ReturnPlay board, String move){
         //move is b2 c3
         
-        String startPosition = move.substring(0, 1);
-        String endPosition = move.substring(3, 4);
-
+        String startPosition = move.substring(0, 2);
+        String endPosition = move.substring(3, 5);
+        
         char startFile = startPosition.charAt(0);
         char endFile = endPosition.charAt(0);
 
-        int startRank = startPosition.charAt(1);
-        int endRank = endPosition.charAt(1);
-
+        int startRank = Character.getNumericValue(startPosition.charAt(1));
+        int endRank = Character.getNumericValue(endPosition.charAt(1));
         if(captured == true){
             return false;
         }else if(isOccupied(board, move) == true){
-            return false; // placeholder. Occupied Spaces can be attacked
+            if(startRank+1 == endRank && (char)(startFile+1) == endFile && isWhite == true){
+                return true;
+            }else if(startRank-1 == endRank && (char)(startFile-1) == endFile && isWhite == false){
+                return true;
+            }else{
+                return false;
+            }
         }else if(isWhite == true){
 
             //first possible move (without attacking)

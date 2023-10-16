@@ -50,78 +50,34 @@ public class Chess {
 	 *         See the section "The Chess class" in the assignment description for details of
 	 *         the contents of the returned ReturnPlay instance.
 	 */
-
-	public static boolean isKingInCheck(boolean isWhite) {
-		// Find king of certain color
-		char kingFile = ' '; // Replace with king's file
-		char kingRank = -1;  // Replace with king's rank
-
-		if (isWhite) {
-			kingFile = 'e';
-			kingRank = 1;
-		} else {
-			kingFile = 'e';
-			kingRank = 8;
-		}
-
-		if (kingFile == ' ' || kingRank == -1) {
-			return false;
-		}
-
-		// Check if any enemy piece can attack the king
-		for (ReturnPiece piece : current.piecesOnBoard) {
-			if (piece.pieceType != null && piece.pieceFile != null && piece.pieceRank != 0) {
-				if (piece.pieceType != ReturnPiece.PieceType.BK && piece.pieceType != ReturnPiece.PieceType.WK && piece.pieceFile !=null && piece.pieceRank != 0) {
-					String move = kingFile + kingRank + " " + piece.pieceFile + piece.pieceRank;
-					if (canCaptureKing(move, isWhite)) {
-						return true;
-					}
-				}
-			}
-			}
-		return false;
-		}
-		private static boolean canCaptureKing(String move, boolean isWhite) {
-			Pieces piece = findPiece(current, move);
-			if (piece != null && piece.canMove(current, move) && piece.isWhite() != isWhite) {
-				return true;
-			}
-			return false;
-		}
-
-
-	static ReturnPlay returnPlay = new ReturnPlay();
-	static Player currentPlayer;
-
-	
-
-
 	public static ReturnPlay play(String move) {
 		//e1 e2
 		/* FILL IN THIS METHOD */
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
+		
+		Pieces p = null;
 
-		return_play.message = ReturnPlay.Message.ILLEGAL_MOVE;
-		if(move.equals("resign")) {
-			if (currentPlayer == Player.white) {
-				return_play.message = ReturnPlay.Message.RESIGN_WHITE_WINS;
-			} else {
-				return_play.message = ReturnPlay.Message.RESIGN_BLACK_WINS;
-			}
-			return returnPlay;
-		}
-		if (move.length() < 4) {
-			return returnPlay;
-		}
+		for(ReturnPiece x: current.piecesOnBoard){
+            String spaceFile = ""+x.pieceFile;
+            int spaceRank = x.pieceRank;
+			int moveRank = Character.getNumericValue(move.charAt(1));
 
-		Pieces p = findPiece(current, move);
+            if(move.charAt(0) == spaceFile.charAt(0) && moveRank == spaceRank){
+				p = (Pieces)x;
+            }
+
+        }
+		
 		if(p.canMove(current, move) == true){
 			p.pieceFile = converter(move.charAt(3));
-			p.pieceRank = move.charAt(4);
+			p.pieceRank = Character.getNumericValue(move.charAt(4));
 			current.piecesOnBoard.add(p);
+		}else{
+			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 		}
+
 		return current;
 	}
 
@@ -164,23 +120,6 @@ public class Chess {
 
 	}
 
-	/*
-	public static boolean isOccupied(ReturnPlay board, String move){
-
-        for(ReturnPiece x: board.piecesOnBoard){
-            String spaceFile = ""+x.pieceFile;
-            int spaceRank = x.pieceRank;
-
-            if(move.charAt(3) == spaceFile.charAt(0) && move.charAt(4) == spaceRank){
-                return true;
-            }
-
-        }
-
-        return false;
-    }
-	*/
-	
 	
 	/**
 	 * This method should reset the game, and start from scratch.
