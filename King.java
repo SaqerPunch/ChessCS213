@@ -24,6 +24,15 @@ public class King extends Pieces {
 
         // The king can move one square in any direction.
         if (rankDifference <= 1 && fileDifference <= 1) {
+            if(isOccupied(board, move)== true){
+                if(spacePiece(board, move).isWhite == true && isWhite == true){
+                    return false;
+                }else if(spacePiece(board, move).isWhite == false && isWhite == false){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
             return true;
         }
 
