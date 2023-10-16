@@ -41,6 +41,7 @@ public class Chess {
 	
 	enum Player { white, black }
 	public static ReturnPlay current;
+	public static Player turn;
 	/**
 	 * Plays the next move for whichever player has the turn.
 	 * 
@@ -56,6 +57,13 @@ public class Chess {
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
+		if(move.equals("resign") && turn == Player.white){
+			current.message = ReturnPlay.Message.RESIGN_BLACK_WINS;
+			return current;
+		}else if(move.equals("resign") && turn == Player.black){
+			current.message = ReturnPlay.Message.RESIGN_WHITE_WINS;
+			return current;
+		}
 		
 		Pieces p = null;
 
@@ -69,11 +77,25 @@ public class Chess {
             }
 
         }
-		
-		if(p.canMove(current, move) == true){
+		if(p == null){
+			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+			return current;
+		}else if(turn == Player.white && p.isWhite != true){
+			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+			return current;
+		}else if(turn == Player.black && p.isWhite == true){
+			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+			return current;
+		}else if(p.canMove(current, move) == true){
 			p.pieceFile = converter(move.charAt(3));
 			p.pieceRank = Character.getNumericValue(move.charAt(4));
 			current.piecesOnBoard.add(p);
+			if(turn == Player.white){
+				turn = Player.black;
+			}else if(turn == Player.black){
+				turn = Player.white;
+			}
+			current.message = null;
 		}else{
 			current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 		}
@@ -129,6 +151,7 @@ public class Chess {
 		current = new ReturnPlay();
 		current.piecesOnBoard = new ArrayList<ReturnPiece>();
 		current.message = null;
+		turn = Player.white;
 
 		for(PieceFile x : PieceFile.values()){
 			//adds white pawns to board
