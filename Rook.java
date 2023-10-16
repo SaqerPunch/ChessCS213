@@ -12,49 +12,25 @@ public class Rook extends Pieces {
     }
 
     @Override
-    public boolean canMove(Board board, String move) {
+    public boolean canMove(ReturnPlay board, String move) {
         // Determine the starting and ending squares
-        char startFile = move.charAt(0);
-        int startRank = Character.getNumericValue(move.charAt(1));
-        char endFile = move.charAt(3);
-        int endRank = Character.getNumericValue(move.charAt(4));
+        String startPosition = move.substring(0, 2);
+        String endPosition = move.substring(3, 5);
+        
+        char startFile = startPosition.charAt(0);
+        char endFile = endPosition.charAt(0);
 
-        // Check if the move is for castling (king moves two squares and rook jumps over)
-        if (Math.abs(endRank - startRank) == 2 && startFile == endFile) {
-            // Implement castling logic here
-            return canCastle(board, move);
-        } else if (startFile == endFile || startRank == endRank) {
-            // Check if it's a valid rank or file move
-            int rankStep = Integer.compare(endRank, startRank);
-            int fileStep = Integer.compare(endFile - 'a', startFile - 'a');
-
-            char currentFile = (char) (startFile + fileStep);
-            int currentRank = startRank + rankStep;
-
-            while (currentFile != endFile || currentRank != endRank) {
-                // Check for pins along rooks past
-                if (board.isOccupied(currentFile, currentRank)) {
-                    Pieces pinningPiece = board.getPiece(currentFile, currentRank);
-                    if (pinningPiece.isWhite() != this.isWhite()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-                currentFile = (char) (currentFile + fileStep);
-                currentRank += rankStep;
-            }
-            if (board.isOccupied(endFile, endRank)) {
-                Pieces targetPiece = board.getPiece(endFile, endRank);
-                if (targetPiece.isWhite() == this.isWhite()) {
-                    return false;
-                }
-            }
+        int startRank = Character.getNumericValue(startPosition.charAt(1));
+        int endRank = Character.getNumericValue(endPosition.charAt(1));
+        if (startFile == endFile || startRank == endRank) {
             return true;
         }
         return false;
+        }
     }
-    private boolean canCastle(Board board, String move) {
+
+
+    /* private boolean canCastle(Board board, String move) {
         char startFile = move.charAt(0);
         int startRank = Character.getNumericValue(move.charAt(1));
         char endFile = move.charAt(3);
@@ -96,4 +72,4 @@ public class Rook extends Pieces {
         }
         return false;
     }
-}   
+}   */
