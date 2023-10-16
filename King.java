@@ -136,7 +136,7 @@ public class King extends Pieces {
     private boolean isSquareUnderAttack(ReturnPlay board, String square) {
         for (ReturnPiece piece : board.piecesOnBoard) {
             String piecePosition = "" + piece.pieceFile + piece.pieceRank;
-            if (((Pieces)piece).canMove(board, (piecePosition + " " + square)) == true) {
+            if (piece.canMove(board, piecePosition + " " + square)) {
                 // The piece can move to the specified square, so it's under attack.
                 return true;
             }
