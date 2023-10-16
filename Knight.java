@@ -41,4 +41,3 @@ public class Knight extends Pieces{
         return true;    // Valid move
     }
 }
-
