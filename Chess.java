@@ -116,26 +116,18 @@ public class Chess {
 			}
 		}
 
-		if(p.pieceType == PieceType.WK){
-
-			ReturnPiece adjacent = null;
-			for(ReturnPiece y: current.piecesOnBoard){
-				String spaceFile = ""+y.pieceFile;
-				int spaceRank = y.pieceRank;
-
-				if(endFile == spaceFile.charAt(0) && endRank == spaceRank){
-					adjacent = y;
-				} 
+		if (p.pieceType == PieceType.BK) {
+			// Check if the move would put the black king next to the white king
+			for (ReturnPiece piece : current.piecesOnBoard) {
+				if (piece.pieceType == PieceType.WK) {
+					String wKingPos = "" + piece.pieceFile + piece.pieceRank;
+					String bKingPos = "" + move.charAt(3) + move.charAt(4);
+					if (areKingsAdjacent(bKingPos, wKingPos)) {
+						current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+						return current;
+					}
+				}
 			}
-
-			int rankstep = 0;
-			int intstep = 0;
-			String tempMove = ""+adjacent.pieceFile+adjacent.pieceType;
-			if(((Pieces)adjacent).isOccupied(current, move)){
-
-			}
-
-
 		}
 		
 	
@@ -245,6 +237,15 @@ public class Chess {
 		}
 
 		return current;
+	}
+
+	private static boolean areKingsAdjacent(String position1, String position2) {
+		char file1 = position1.charAt(0);
+		char rank1 = position1.charAt(1);
+		char file2 = position2.charAt(0);
+		char rank2 = position2.charAt(1);
+	
+		return Math.abs(file1 - file2) <= 1 && Math.abs(rank1 - rank2) <= 1;
 	}
 
 	public static PieceFile converter(char x){

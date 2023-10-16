@@ -49,6 +49,14 @@ public class King extends Pieces {
                     }
                     return true;
                 }
+                
+                // Check if the move places the king adjacent to the opponent's king
+                String kingPos = isWhite ? "WK" : "BK";
+                String opponentKingPos = isWhite ? "BK" : "WK";
+                if (move.contains(kingPos) && move.contains(opponentKingPos)) {
+                    return false;
+                }
+                
                 hasMoved = true;
                 return true;
             }
