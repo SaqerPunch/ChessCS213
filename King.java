@@ -71,36 +71,38 @@ public class King extends Pieces {
     }
 
     private boolean isCastlingMove(ReturnPlay board, String move) {
-    // Castling moves for white:
-    // "e1 g1" for kingside castling
-    // "e1 c1" for queenside castling
-    if (isWhite && (move.equals("e1 g1") || move.equals("e1 c1"))) {
-        // Check if king has moved
-        if (!hasMoved) {
-            if (move.equals("e1 g1")) {
-                // Kingside castle
-                // Check that f1 and g1 are empty
-                String fSquare = "f1";
-                String gSquare = "g1";
-                if (!isOccupied(board, fSquare) && !isOccupied(board, gSquare)) {
-                    // TODO: Check for checks making sure the king is not in check
-                    return true;
-                }
-            } else if (move.equals("e1 c1")) {
-                // Queenside castle
-                // Check that b1, c1, and d1 are empty
-                String bSquare = "b1";
-                String cSquare = "c1";
-                String dSquare = "d1";
-                if (!isOccupied(board, bSquare) && !isOccupied(board, cSquare) && !isOccupied(board, dSquare)) {
-                    // TODO: Check for checks making sure the king is not in check
-                    return true;
+        if (isWhite && (move.equals("e1 g1") || move.equals("e1 c1"))) {
+            if (!hasMoved) {
+                if (move.equals("e1 g1")) {
+                    // Kingside castle
+                    // Check that f1 and g1 are empty
+                    String fSquare = "f1";
+                    String gSquare = "g1";
+                    if (!isOccupied(board, fSquare) && !isOccupied(board, gSquare)) {
+                        // Check if the king is not in check
+                        if (!isSquareUnderAttack(board, "e1") &&
+                            !isSquareUnderAttack(board, "f1") && !isSquareUnderAttack(board, "g1")) {
+                            return true;
+                        }
+                    }
+                } else if (move.equals("e1 c1")) {
+                    // Queenside castle
+                    // Check that b1, c1, and d1 are empty
+                    String bSquare = "b1";
+                    String cSquare = "c1";
+                    String dSquare = "d1";
+                    if (!isOccupied(board, bSquare) && !isOccupied(board, cSquare) && !isOccupied(board, dSquare)) {
+                        // Check if the king is not in check
+                        if (!isSquareUnderAttack(board, "e1") &&
+                            !isSquareUnderAttack(board, "c1") && !isSquareUnderAttack(board, "d1")) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
+        return false;
     }
-    return false;
-}
 
     private boolean isCastlingValid(ReturnPlay board, String move) {
         if (move.equals("e1 g1") || move.equals("e8 g8")) {

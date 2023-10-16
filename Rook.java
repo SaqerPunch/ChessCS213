@@ -1,6 +1,7 @@
 package chess;
 
 public class Rook extends Pieces {
+    private boolean hasMoved;
     public Rook(boolean isWhite) {
         super(isWhite);
 
@@ -9,6 +10,7 @@ public class Rook extends Pieces {
         } else {
             pieceType = PieceType.BR;
         }
+        hasMoved = false;
     }
 
     @Override
@@ -86,7 +88,11 @@ public class Rook extends Pieces {
         }
            
             return true;
-        }    
+        }
+        
+        public boolean hasMoved() {
+            return hasMoved;
+        }
     }
 
 
