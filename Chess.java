@@ -130,6 +130,20 @@ public class Chess {
 			}
 		}
 		
+		if (p.pieceType == PieceType.WK) {
+			// Check if the move would put the white king next to the black king
+			for (ReturnPiece piece : current.piecesOnBoard) {
+				if (piece.pieceType == PieceType.BK) {
+					String bKingPos = "" + piece.pieceFile + piece.pieceRank;
+					String wKingPos = "" + move.charAt(3) + move.charAt(4);
+					if (areKingsAdjacent(wKingPos, bKingPos)) {
+						current.message = ReturnPlay.Message.ILLEGAL_MOVE;
+						return current;
+					}
+				}
+			}
+		}
+		
 	
 		if(p.canMove(current, move) == true){
 			
