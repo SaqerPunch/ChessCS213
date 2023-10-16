@@ -65,32 +65,35 @@ public class Chess {
 			return current;
 		}
 		
-		// Check for castling moves
 		if (isCastlingMove(move)) {
-			if (canCastle(current, move)) {
-				performCastle(current,move);
+			if(canCastle(current, move)) {
+				performCastle(current, move);
 				return current;
 			} else {
-				// Castling move is invalid
 				current.message = ReturnPlay.Message.ILLEGAL_MOVE;
 				return current;
 			}
 		}
 
 		private static boolean isCastlingMove(String move) {
-			// TODO Auto-generated method stub
+			if move.equals("O-O") {
+				return true;
+			}
+			if (move.equals("O-O-O")) {
+				return true;
+			}
 			return false;
 		}
 
 		private static boolean canCastle(ReturnPlay board, String move) {
-			// TODO Auto-generated method stub
-			return false;
+
 		}
 
 		private static void performCastle(ReturnPlay board, String move) {
-			// TODO Auto-generated method stub
-			return false;
+
 		}
+
+		
 
 		Pieces p = null;
 
