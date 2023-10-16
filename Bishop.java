@@ -57,7 +57,18 @@ public class Bishop extends Pieces{
             }
 
             if(currentFile == endFile && currentRank == endRank){
-                return true;
+                String currentMove =""+currentFile+currentRank+" "+""+nextSquareFile+nextSquareRank;
+                if(isOccupied(board, currentMove)== true){
+                    if(spacePiece(board, currentMove).isWhite == true && isWhite == true){
+                        return false;
+                    }else if(spacePiece(board, currentMove).isWhite == false && isWhite == false){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
             }
             
         return false;

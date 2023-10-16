@@ -28,9 +28,17 @@ public class Pawn extends Pieces{
             return false;
         }else if(isOccupied(board, move) == true){
             if(startRank+1 == endRank && (char)(startFile+1) == endFile && isWhite == true){
-                return true;
+                if(spacePiece(board, move).isWhite == true){
+                    return false;
+                }else{
+                    return true;
+                }
             }else if(startRank-1 == endRank && (char)(startFile-1) == endFile && isWhite == false){
-                return true;
+                if(spacePiece(board, move).isWhite == false){
+                    return false;
+                }else{
+                    return true;
+                }
             }else{
                 return false;
             }
