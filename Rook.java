@@ -22,6 +22,12 @@ public class Rook extends Pieces {
 
         int startRank = Character.getNumericValue(startPosition.charAt(1));
         int endRank = Character.getNumericValue(endPosition.charAt(1));
+
+        // Check if the knight is trying to move to own square
+        if (startFile == endFile && startRank == endRank) { // 
+            return false;
+        }
+        
         if (startFile == endFile || startRank == endRank) {
             return true;
         }

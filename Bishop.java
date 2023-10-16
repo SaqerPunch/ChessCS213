@@ -20,6 +20,11 @@ public class Bishop extends Pieces{
         char endFile = move.charAt(3);
         int endRank = Character.getNumericValue(move.charAt(4));
 
+        // Check if the knight is trying to move to own square
+        if (startFile == endFile && startRank == endRank) { // 
+            return false;
+        }
+
         // Check if absolute value of ranks and files are equal 
         int rankDifference = Math.abs(endRank - startRank);
         int fileDifference = Math.abs(endFile - startFile);
