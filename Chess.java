@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import chess.ReturnPiece.PieceFile;
 import chess.ReturnPiece.PieceType;
-
+/*
+ * By: Tommy Feeley and Ahmed Saqer
+ * Chess project for Rutgers CS213 Software Methodology with Professor Sesh Venugopal
+ */
 class ReturnPiece {
 	static enum PieceType {WP, WR, WN, WB, WQ, WK, 
 		            BP, BR, BN, BB, BK, BQ};
