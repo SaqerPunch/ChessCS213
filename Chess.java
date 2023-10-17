@@ -57,6 +57,26 @@ public class Chess {
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
+
+		if (move.endsWith("draw?")) {
+			// Perform the move without the "draw?" part
+			String actualMove = move.substring(0, move.length() - 5);
+			ReturnPlay drawResult = play(actualMove);
+	
+			if (drawResult.message == null) {
+				drawResult.message = ReturnPlay.Message.DRAW;
+				System.out.println("DRAW");
+			}
+	
+			// Set a flag to indicate that a "DRAW" has been requested
+			current.message = ReturnPlay.Message.DRAW;
+			return drawResult;
+		}
+	
+		if (current.message == ReturnPlay.Message.DRAW) {
+			System.exit(0); // Terminate the program when a draw is requested
+		}
+
 		if(move.equals("resign") && turn == Player.white){
 			current.message = ReturnPlay.Message.RESIGN_BLACK_WINS;
 			return current;
